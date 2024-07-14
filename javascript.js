@@ -154,7 +154,6 @@ const game = (function() {
                 return true;
             }
         }
-        
         return false;
     }
 
@@ -220,6 +219,7 @@ const renderHTML = (function() {
         resetButton.style.display = 'none';
     });
 
+    // Displays gameboard with position value
     function grid(grid) {
         gameBoard.innerHTML = ''; // Clear the board
 
@@ -232,7 +232,7 @@ const renderHTML = (function() {
                 
                 if (i < 2) cell.className += ' border-b-4';
                 if (j < 2) cell.className += ' border-r-4';
-                cell.dataset.position = position;
+                cell.dataset.position = position; // GIve position value for the cell
                 cell.textContent = grid[i][j] || '';
                 cell.addEventListener('click', selectedCell);
                 gameBoard.appendChild(cell);
@@ -242,11 +242,13 @@ const renderHTML = (function() {
         }
     }
 
+    // Displays replay and reset button
     function replayOrReset() {
         replayButton.style.display = 'inline-block';
         resetButton.style.display = 'inline-block';
     }
 
+    // Display in game message
     function gameMessage(message) {
         if (message) {
             messageDiv.textContent = message;
@@ -257,17 +259,20 @@ const renderHTML = (function() {
         }
     }
 
+    // Triggers event on the grid
     function selectedCell(event) {
         const position = event.target.dataset.position;
         game.playTurn(parseInt(position));
     }
 
+    // Displays player name and score
     function playersScore(players) {
         gameScore.textContent = players[0].getScore() + '  SCORE  ' + players[1].getScore();
         player1.textContent = players[0].getName() + ': X';
         player2.textContent = players[1].getName() + ': O';
     }
 
+    // Popup for playername input
     function getPlayerName(callback) {
         popup.style.display = 'flex';
 
